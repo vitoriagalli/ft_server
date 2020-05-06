@@ -30,14 +30,16 @@ echo "FLUSH PRIVILEGES;" | mysql -u root
 tar -xvf latest.tar.gz
 mv wp-config.php /wordpress/
 mv wordpress /var/www/ftserver/
+
 # update permissions for nginx user
 #chown -R www-data:www-data *
 #usermod -a -G www-data:www-data
 
 # create user for database (same as wordpress wp-config.php)
 echo "CREATE DATABASE wordpress;" | mysql -u root
-echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'user'@'localhost' IDENTIFIED BY '1234';"| mysql -u root
+echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'vitoria'@'localhost' IDENTIFIED BY '1234';"| mysql -u root
 echo "FLUSH PRIVILEGES;" | mysql -u root
+mysql wordpress < wordpress.sql
 
 # SSL CONFIG
 openssl req -x509 -nodes -days 365 \
@@ -52,4 +54,5 @@ rm -rf phpMyAdmin-5.0.2-all-languages.tar.gz \
 	latest.tar.gz \
 	nginx.default.conf \
 	config.sample.inc.php \
+	wordpress.sql \
 	deploy.sh
