@@ -22,10 +22,16 @@ Docker: https://docs.docker.com/engine/install/
 
 #### Build Instructions
 
-`make` builds the image and runs it as a container\
-`make clean` removes the image and the container\
-`make autoindex-on` enables directory listing\
-`make autoindex-off` disables directory listing\
+###### Docker commands
+
+`docker build -t $(IMAGE_NAME) .` builds the image\
+`docker run -d -p 80:80 -p 443:443 --name $(CONTAINER_NAME) $(IMAGE_NAME)` runs the image as a container\
+`docker stop $(CONTAINER_NAME)` stops the container\
+`docker rmi $(IMAGE_NAME)` removes the image\
+`docker rm $(CONTAINER_NAME)` removes the container\
+`docker exec -it $(CONTAINER_NAME) bash` access the server CLI\
+`docker exec $(CONTAINER_NAME) bash /autoindex.sh on` enables directory listing\
+`docker exec $(CONTAINER_NAME) bash /autoindex.sh off` disables directory listing\
 
 #### Acess
 
